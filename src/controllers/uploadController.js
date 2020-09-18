@@ -8,7 +8,9 @@ class UploadController {
     async uploadSingle(req,res){
         try {
             const { filename: image } = req.file
+            console.log(image)
             const [name] = image.split('.')
+            console.log(name)
             const fileName = `${name}.jpg`
 
             await sharp(req.file.path)
