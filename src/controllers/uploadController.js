@@ -7,18 +7,21 @@ const fs = require('fs')
 class UploadController {
     async uploadSingle(req,res){
         try {
-            console.log(req.file)
-            await sharp(req.file.path)
-            .resize(500)
-            .jpeg({quality:50})
-            .toFile(path.resolve(req.file.destination,'resized',req.file.filename))
+            const { filename: image } = req.file
+            const [name] = image.split('.')
+            const fileName = `${name}.jpg`
 
-            const upload = await Upload.create({
-                image : req.file.filename
-            })
+            await sharp(req.file.path)
+            .resize(500, 300)
+            .jpeg({quality: 71})
+            .toFile(path.resolve(req.file.destination,'resized', fileName))
             fs.unlinkSync(req.file.path)
 
-            res.json(upload)
+            const newImage = await Upload.create({
+                image : fileName
+            })
+
+            return res.json(newImage)
 
         } catch (error) {
             console.log(error)
