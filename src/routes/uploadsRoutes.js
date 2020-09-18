@@ -10,6 +10,8 @@ const uploadController = new UploadController();
 
 const upload = multer(uploadConfig);
 
-routes.post('/single', upload.single('image'), uploadController.uploadSingle)
+routes.post('/single', upload.single('image'), uploadController.uploadSingle);
+routes.post('/array', upload.array('image',5), uploadController.uploadArray);
+
 
 module.exports = routes;
