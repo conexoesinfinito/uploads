@@ -59,6 +59,44 @@ class UploadController {
             return res.json(error);  
         }
     }
+    async uploadaFields(req,res){
+        try {
+            
+            const file = req.files
+            const {image1,image2} = file;
+            const nameImage = [...image1,...image2]; 
+
+            const fields = []
+            nameImage.forEach(async function(file){
+                    
+                const { filename: image } = file
+                const [name] = image.split('.')
+                const fileName = `${name}.jpg`
+                
+                fields.push(fileName)   
+                
+                await sharp(file.path)
+                .resize(500, 300)
+                .jpeg({quality: 71})
+                .toFile(path.resolve(file.destination,'resized', fileName))
+                fs.unlinkSync(file.path)
+            
+        })
+
+        const newImage = await Upload.create({
+            images : fields
+        })
+
+        return res.json(newImage)
+
+                    
+            
+
+            
+        } catch (error) {
+            return res.json(error);  
+        }
+    }
 }
 
 
