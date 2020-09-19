@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const uploadSchema = new mongoose.Schema({
-    image : String,
-    images : [String]
+    images : [String],
+    image: String,
 })
 
 module.exports = mongoose.model('Upload',uploadSchema);

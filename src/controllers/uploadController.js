@@ -88,13 +88,21 @@ class UploadController {
         })
 
         return res.json(newImage)
-
-                    
-            
-
             
         } catch (error) {
             return res.json(error);  
+        }
+    }
+    async uploadNone(req,res){
+        try {
+            const {imageName} = req.body
+            const newImage = await Upload.create({
+                image : imageName
+            })
+
+            return res.json(newImage)
+        } catch (error) {
+            console.log(error)
         }
     }
 }
