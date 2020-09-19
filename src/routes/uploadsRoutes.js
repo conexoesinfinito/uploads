@@ -14,7 +14,7 @@ routes.post('/single', upload.single('image'), uploadController.uploadSingle);
 routes.post('/array', upload.array('image',5), uploadController.uploadArray);
 routes.post('/fields',upload.fields([{name : 'image1',maxCount:1},{name:'image2',maxCount:1}]),uploadController.uploadaFields);
 routes.post('/none',upload.none(),uploadController.uploadNone);
-routes.post('/any',upload.any(),uploadController.uploadNone);
+routes.post('/any',upload.any(),uploadController.uploadAny);
 
 
 module.exports = routes;
